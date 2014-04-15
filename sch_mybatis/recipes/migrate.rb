@@ -32,9 +32,10 @@ end
 
 bash "run_migrations" do
 	user "root"
+	export MIGRATIONS_HOME=/usr/share/mybatis-migrations-3.2.0/bin
 	cwd "#{node[:sch_mybatis][:migrations_working_folder]}"
 	code <<-EOH
-	#{node[:sch_mybatis][:install_folder]}/#{node[:sch_mybatis][:installed_name]}/bin/migrate #{migrate_command} 
+	#{node[:sch_mybatis][:install_folder]}/#{node[:sch_mybatis][:installed_name]}/bin/migrate #{migrate_command} --env=#{node[:sch_mybatis][:environment]}
 	EOH
 	timeout node[:sch_mybatis][:script_timeout] 
  	#only_if { node.attribute?("mybatis_bootstrap_complete") }

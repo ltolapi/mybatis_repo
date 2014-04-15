@@ -65,6 +65,7 @@ package "git"
 bash "download_jar" do
 		code <<-EOH
 		cd #{node[:sch_mybatis][:download_directory]}
+                rm -rf #{node[:sch_mybatis][:download_directory]}/*
 		wget --user=#{node[:sch_mybatis][:artefactory_uname]} --password=#{node[:sch_mybatis][:artefactory_password]}  #{node[:sch_mybatis][:jar_url]}
 		unzip litpro-db*.jar
 		EOH
