@@ -68,8 +68,7 @@ bash "download_jar" do
 		wget --user=#{node[:sch_mybatis][:artefactory_uname]} --password=#{node[:sch_mybatis][:artefactory_password]}  #{node[:sch_mybatis][:jar_url]}
 		unzip litpro-db*.jar
 		EOH
-		not_if { node.attribute("mybatis_setup_git_complete") }
-	end
+end
 
 
 #deploy key implemenation
