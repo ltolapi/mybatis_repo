@@ -28,7 +28,7 @@ end
 bash "put_files" do
   code <<-EOH
 	cd  #{node[:sch_mybatis][:install_folder]}
-  wget --no-check-certificate #{node[:mybatis][:installer_url]}
+  wget --no-check-certificate #{node[:sch_mybatis][:installer_url]}
   unzip #{node[:sch_mybatis][:install_folder]}/#{node[:sch_mybatis][:source]} -d #{node[:sch_mybatis][:install_folder]}
   chmod -R 755 #{node[:sch_mybatis][:install_folder]}
 	mkdir /tmp/mybatis

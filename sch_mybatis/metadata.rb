@@ -8,3 +8,4 @@ version          "0.5.1"
 #  depends cb
 #end
 depends "java"
+depends "maven"

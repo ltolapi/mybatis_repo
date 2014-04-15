@@ -8,6 +8,9 @@
 #
 
 # Create a directory for the migrations
+
+include_recipe "maven"
+
 directory node[:sch_mybatis][:migrations_working_folder] do
   owner "root"
   group "root"
@@ -29,24 +32,22 @@ end
 
 # Install JDBC driver
 #cookbook_file "#{node[:sch_mybatis][:migrations_working_folder]}/drivers/mysql-connector-java-5.1.21-bin.jar" do
-#  source "mysql-connector-java-5.1.21-bin.jar"
+# source "mysql-connector-java-5.1.21-bin.jar"
 #	mode "0755"
 #	not_if do
-#    File.exists?("#{node[:sch_mybatis][:migrations_working_folder]}/drivers/mysql-connector-java-5.1.21-bin.jar")
+#   File.exists?("#{node[:sch_mybatis][:migrations_working_folder]}/drivers/mysql-connector-java-5.1.21-bin.jar")
 #	end
 #end
 
+# Removed the above and added the following to update/download mysql jar file
 maven "mysql-connector-java" do
   group_id "mysql"
-  version node[:sch_mybatis][:mysql_connector_java_version]
+  version "#{node[:sch_mybatis][:mysql_connector_java_version]}"
   mode   0644
   owner  "root"
-  dest node[:sch_mybatis][:migrations_working_folder]}/drivers/
+  dest "#{node[:sch_mybatis][:migrations_working_folder]}/drivers/"
   packaging "jar"
 end
-
-
-
 
 # Configure migrations environment
 # This recipe was originally built to do migrations from the slz ion database
@@ -57,17 +58,17 @@ if node[:sch_mybatis][:db_port].empty?
 	db_username = node['samconnect']['iondb_username']
 	db_password = node['samconnect']['iondb_password']
 else
-	db_port = node['mybatis']['db_port']
-	db_username = node['mybatis']['db_username']
-	db_password = node['mybatis']['db_password']
+	db_port = node['sch_mybatis']['db_port']
+	db_username = node['sch_mybatis']['db_username']
+	db_password = node['sch_mybatis']['db_password']
 end
 
 template "#{node[:sch_mybatis][:migrations_working_folder]}/environments/#{node[:sch_mybatis][:environment]}.properties" do
   source "environment.properties.erb"
   mode "0644"
   variables(
-    :driver => node['mybatis']['db_driver'],
-    :url => "#{node['mybatis']['db_url']}:#{db_port}/#{node['mybatis']['db_name']}",
+    :driver => "#{node['sch_mybatis']['db_driver']}",
+    :url => "#{node['sch_mybatis']['db_url']}:#{db_port}/#{node['sch_mybatis']['db_name']}",    
     :username => db_username,
     :password => db_password )
 end

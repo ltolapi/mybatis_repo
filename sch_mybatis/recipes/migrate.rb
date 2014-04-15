@@ -7,17 +7,18 @@
 # All rights reserved - Do Not Redistribute
 # Assumption is the migration sql is not a zip file
 
-if !node[:sch_mybatis][:use_git_repo] 
-	node[:sch_mybatis][:migration_scripts].each do |download_file|
-		bash "download_migration" do    
-			code <<-EOH
-			cd #{node[:sch_mybatis][:migrations_working_folder]}/scripts
-			wget -N --user=#{node[:sch_mybatis][:bootstrap_script_username]} --password='#{node[:sch_mybatis][:bootstrap_script_password]}'  #{downoad_file}
-			EOH
-			only_if { node.attribute?("mybatis_bootstrap_complete") }
-		end
-	end
-end
+#if !node[:sch_mybatis][:use_git_repo] 
+#	node[:sch_mybatis][:migration_scripts].each do |download_file|
+#		bash "download_migration" do    
+#			code <<-EOH
+#			cd #{node[:sch_mybatis][:migrations_working_folder]}/scripts
+#			wget -N --user=#{node[:sch_mybatis][:bootstrap_script_username]} --password='#{node[:sch_mybatis][:bootstrap_script_password]}'  #{downoad_file}
+#			EOH
+#			only_if { node.attribute?("mybatis_bootstrap_complete") }
+#		end
+#	end
+#end
+
 
 migrate_command = ""
 

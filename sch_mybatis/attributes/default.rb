@@ -24,9 +24,13 @@ default[:sch_mybatis][:use_git_repo] = true
 default[:sch_mybatis][:git_security_type] = "oauth" # must be either "oauth" or "deploy_key"
 default[:sch_mybatis][:git_repo_destination] = "/usr/local/mybatis/git_space"
 default[:sch_mybatis][:git_repo] = "" # for examlpe git@github.com:fred/fred.git"
-default[:sch_mybatis][:git_scripts_dir] = "/usr/local/mybatis/git_space/current/dbscripts/myBatis"
+#default[:sch_mybatis][:git_scripts_dir] = "/usr/local/mybatis/git_space/current/dbscripts/myBatis"
 default[:sch_mybatis][:deploy_key] = "" # must use \n instead of CRLF and have standard begining and ending ---- delimiters ----
 default[:sch_mybatis][:deploy_revision] = "master"
 default[:sch_mybatis][:script_timeout] = 10800
-default[:mybatis][:installer_url] = "https://github.com/ltolapi/mybatis_repo/blob/master/#{node[:sch_mybatis][:source]}?raw=true"
-default[:mybatis][:mysql_connector_java_version] = "5.1.21"
+default[:sch_mybatis][:installer_url] = "https://github.com/ltolapi/mybatis_repo/blob/master/#{node[:sch_mybatis][:source]}?raw=true"
+default[:sch_mybatis][:mysql_connector_java_version] = "5.1.28"
+default[:sch_mybatis][:jar_url] = "http://ec2-54-209-70-14.compute-1.amazonaws.com:8081/artifactory/list/LPSERrepo/com/scholastic/intl/litpro-db/1.1-SNAPSHOT/litpro-db-1.1-20140415.023043-281.jar"
+default[:sch_mybatis][:artefactory_uname] = "admin"
+default[:sch_mybatis][:artefactory_password] = "artifactory@cloud"
+default[:sch_mybatis][:download_directory] = "/usr/local/mybatis/git_space/current/dbscripts/myBatis"
